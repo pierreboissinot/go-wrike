@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func main() {
+func getProjectExample() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
