@@ -1,22 +1,24 @@
 language: go
 go:
-  - "1.11"
+- '1.11'
 stages:
-  - lint
-  - test
-
+- lint
+- test
 jobs:
   include:
-    - stage: lint
-      script:
-        - go get golang.org/x/lint/golint
-        - golint -set_exit_status
-        - go vet -v
-    - stage: test
-      script:
-        - go test -v
-
+  - stage: lint
+    script:
+    - go get golang.org/x/lint/golint
+    - golint -set_exit_status
+    - go vet -v
+  - stage: test
+    script:
+    - go test -v
 matrix:
   allow_failures:
-    - go: master
+  - go: master
 fast_finish: true
+env:
+  global:
+  - secure: d/baLU+7XSmnQ0WRs60KM0vo6UfBJGiZ37wI9+egdecA0nBDmCwvoIZ9VGAcO58eQAX+WZHEUWxSDUIZWNsUoCJcq+KShJ1PDX9VEzbeuPUPz6K5TqSqCF2bfrHXpYUczrUomhD1o5mVZdebJvusCJgtUvbnrMsLs1orYdftGOgi+/9uGlkNnuIHpE9TcHxuvEoLDHuo1s8JGsWKvd9vjAn76HNEKvFKUruleFn9YqRWmBnufqWm0ZKvrDheZgl0ejqxsFS+pUh+1QxZ5iKJa6UOGpZY73h3f3tRhr2Wc0278mZIcQKf63t9MLx8yDwN9tk7eHLYRTd2Xd3rIO6PyW59mCYu+s/gt0+kUA8IFgbkU94iX8DnrmGRM3M1qG2nrbpZJDazwZaTKkplTQ634vQI/+10Bgi1AdD7I3S1d5CBV3j/xlGu1LPEODmGO8D+BSxDfzaRrJE6j51fwmGxrYma/xAAXMYhINwp8ZSnnd7zf0ShMd18K8p3oHlMSI54lDeh91zh1XMbev8hv0Anz5rozhyedpLpp8WqwQYmIPtLTaYzkjukB+yG6iCXFLeoosMmTdhg9scMjrmGZB6HBJH2ePgHkv5oZwtwSoXlnLxlTLgy+L6a5KQ0fGAM5YZWa7WC33+casplbF2uXPxJd0LKNpfPxC6UrROk3KnGzPQ=
+  - secure: o0EOVw8uLdT1lDtc0SGh3j+YjnWt9NxHfzziRdb0ijckoFfbIJB/BM+uDQElbT/YEGs5dTpqnF0ISt2gVTyF4qZOTJjwkbPaxRpati5Rr4S2ywO98cV7OFHFGk3JivihZpLwbOQb0BGWBtes+AIL8/83l9AofAl05mm2Csjhj9zXnVrL7tJvDhJ9BsdzACNC7MxPNk4GO2n5V/W1q8ndwmAvaij2IytJdnRXu2F56slDMkd//woXQ9r8ngPDRqDcgewvPdKyJ6xRieXKZI2sU04az2hMctC7DeksVeNjLcTNpLXtvpZiwZJG29mJx5p6B0tSon0ka4SgxWiMMz8S5DnOYlfWOVddgA7NQ4PR2oMZ7mfvInT3JC8hChjgHvdDR2JvGE9KevnMkRHCo3LAuKupOojERcYgu+3vtKKKK1RWCdsmLHm5aZdMMtTCTOIAAAUA5kaMouTFHr4Zw8XxuUny3PQjguEuJ2ThQXauog60i0MItlnEOQpshU7euAfCeKTUhqc1u67ieeNSV1UVBQDl4nxUJsMRJD6QH8ok0Nm8ADVbjfKE6dst1+RHUCMnqpXufRmFkmgjo/lpyOhG4g33fazQuUhlBJXJyPZzn4PvX3hgY46KQJNzlkHXg14b+qjPSZp04PMyMQRkDHsQaF+0uddEptv+pgVS2+6gc2Q=
