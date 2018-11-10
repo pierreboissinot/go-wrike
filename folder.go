@@ -29,23 +29,26 @@ type Project struct {
 }
 
 type Folder struct {
-	ID             string        `json:"id"`
-	AccountId      string        `json:"accountId"`
-	Title          string        `json:"title"`
-	CreatedDate    string        `json:"createdAt"`
-	UpdatedDate    string        `json:"updatedAt"`
-	Description    string        `json:"description"`
-	SharedIds      []string      `json:"sharedIds,omitempty"`
-	ParentIds      []string      `json:"parentIds,omitempty"`
-	ChildIds       []string      `json:"childIds,omitempty"`
-	SuperParentIds []string      `json:"superParentIds,omitempty"`
-	Scope          string        `json:"scope"`
-	HasAttachments bool          `json:"hasAttachments"`
-	Permalink      string        `json:"permalink"`
-	WorkflowId     string        `json:"workflowId"`
-	Metadata       []Metadata    `json:"metadata,omitempty"`
-	CustomFields   []CustomField `json:"customFields"`
-	Project        Project       `json:"project"`
+	Kind string `json:"kind"`
+	Data []struct {
+		ID             string        `json:"id"`
+		AccountId      string        `json:"accountId"`
+		Title          string        `json:"title"`
+		CreatedDate    string        `json:"createdAt"`
+		UpdatedDate    string        `json:"updatedAt"`
+		Description    string        `json:"description"`
+		SharedIds      []string      `json:"sharedIds,omitempty"`
+		ParentIds      []string      `json:"parentIds,omitempty"`
+		ChildIds       []string      `json:"childIds,omitempty"`
+		SuperParentIds []string      `json:"superParentIds,omitempty"`
+		Scope          string        `json:"scope"`
+		HasAttachments bool          `json:"hasAttachments"`
+		Permalink      string        `json:"permalink"`
+		WorkflowId     string        `json:"workflowId"`
+		Metadata       []Metadata    `json:"metadata,omitempty"`
+		CustomFields   []CustomField `json:"customFields"`
+		Project        Project       `json:"project"`
+	} `json:"data,omitempty"`
 }
 
 func (s *FolderService) GetFolder(id string) (*Folder, *Response, error) {
@@ -57,6 +60,7 @@ func (s *FolderService) GetFolder(id string) (*Folder, *Response, error) {
 
 	f := new(Folder)
 	resp, err := s.client.Do(req, f)
+
 	if err != nil {
 		return nil, resp, err
 	}
