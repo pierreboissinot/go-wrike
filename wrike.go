@@ -72,6 +72,7 @@ func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 	}
 
 	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Authorization", "Bearer "+c.token)
 
 	if c.userAgent != "" {
 		req.Header.Set("User-Agent", c.userAgent)
