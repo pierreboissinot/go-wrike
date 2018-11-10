@@ -9,11 +9,12 @@ import (
 )
 
 const (
-	defaultBaseUrl = "https://www.wrike.com/"
+	defaultBaseURL = "https://www.wrike.com/"
 	apiVersionPath = "api/v4/"
 	userAgent      = "go-wrike"
 )
 
+// Client Wrike API client
 type Client struct {
 	client    *http.Client
 	baseURL   *url.URL
@@ -22,6 +23,7 @@ type Client struct {
 	Folders   *FolderService
 }
 
+// NewClient return client
 func NewClient(httpClient *http.Client, token string) *Client {
 	client := newClient(httpClient)
 	client.token = token
@@ -51,6 +53,7 @@ func (c *Client) SetBaseURL(urlStr string) error {
 	return nil
 }
 
+// NewRequest build request
 func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 	u := *c.baseURL
 	unescaped, err := url.PathUnescape(path)
@@ -81,10 +84,12 @@ func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 	return req, nil
 }
 
+// Response struct
 type Response struct {
 	*http.Response
 }
 
+// Do execute a request
 func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -110,6 +115,7 @@ func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 	return response, err
 }
 
+// CheckResponse check response returned
 func CheckResponse(resp *http.Response) error {
 	switch resp.StatusCode {
 	case 200:
@@ -128,7 +134,7 @@ func newClient(httpClient *http.Client) *Client {
 		httpClient = http.DefaultClient
 	}
 	c := &Client{client: httpClient, userAgent: userAgent}
-	if err := c.SetBaseURL(defaultBaseUrl); err != nil {
+	if err := c.SetBaseURL(defaultBaseURL); err != nil {
 		panic(err)
 	}
 
