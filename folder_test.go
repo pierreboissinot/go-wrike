@@ -1,8 +1,8 @@
 package wrike
 
 import (
-	"fmt"
 	"net/http"
+	"os"
 	"reflect"
 	"testing"
 )
@@ -11,13 +11,12 @@ func TestFolderService_GetFolder(t *testing.T) {
 	mux, server, client := setup()
 	defer teardown(server)
 
-	mux.HandleFunc("/api/v4/folders/IEAAT56UI4HBWMRG", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/v4/folders/"+os.Getenv("WRIKE_FOLDER"), func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"id":"IEAAT56UI4HBWMRG"}`)
 	})
-	want := &Folder{ID: "IEAAT56UI4HBWMRG"}
 
-	folder, _, err := client.Folders.GetFolder("IEAAT56UI4HBWMRG")
+	want := &Folder{Kind: "folders"}
+	folder, _, err := client.Folders.GetFolder(os.Getenv("WRIKE_FOLDER"))
 	if err != nil {
 		t.Fatalf("Folders.GetFolder returns an error: %v", err)
 	}

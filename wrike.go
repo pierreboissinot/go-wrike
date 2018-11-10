@@ -83,9 +83,6 @@ func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 
 type Response struct {
 	*http.Response
-
-	Kind string
-	//Data []struct{}
 }
 
 func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
