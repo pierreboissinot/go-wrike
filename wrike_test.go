@@ -2,7 +2,7 @@ package wrike
 
 import (
 	"github.com/joho/godotenv"
-	//"log"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -11,7 +11,7 @@ import (
 func setup() (*http.ServeMux, *httptest.Server, *Client) {
 	err := godotenv.Load()
 	if err != nil {
-		//log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file")
 	}
 	// mux is the HTTP request multiplexer used with the test server.
 	mux := http.NewServeMux()
