@@ -21,6 +21,7 @@ type Client struct {
 	token     string
 	userAgent string
 	Folders   *FolderService
+	Timelogs  *TimelogService
 }
 
 // NewClient return client
@@ -139,6 +140,7 @@ func newClient(httpClient *http.Client) *Client {
 	}
 
 	c.Folders = &FolderService{client: c}
+	c.Timelogs = &TimelogService{client: c}
 
 	return c
 }
