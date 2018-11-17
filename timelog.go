@@ -32,11 +32,11 @@ func (s *TimelogService) GetTimelogs(id string) (*Timelogs, *Response, error) {
 		return nil, nil, err
 	}
 
-	f := new(Timelogs)
-	resp, err := s.client.Do(req, f)
+	timelogs := new(Timelogs)
+	resp, err := s.client.Do(req, timelogs)
 
 	if err != nil {
 		return nil, resp, err
 	}
-	return f, resp, err
+	return timelogs, resp, err
 }
