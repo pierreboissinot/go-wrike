@@ -26,7 +26,7 @@ type Timelogs struct {
 }
 
 func (s *TimelogService) GetTimelogs(id string) (*Timelogs, *Response, error) {
-	u := fmt.Sprintf("folders/%s", id) + "/timelogs"
+	u := fmt.Sprintf("folders/%s/timelogs", id)
 	fmt.Println(u)
 	req, err := s.client.NewRequest("GET", u)
 	if err != nil {
