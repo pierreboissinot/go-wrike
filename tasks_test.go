@@ -21,4 +21,8 @@ func TestTasksService(t *testing.T) {
 	if !reflect.DeepEqual(want, tasks) {
 		t.Errorf("Tasks.QueryTasks returned %+v, want %+v", tasks, want)
 	}
+
+	// GetTask
+	task, _, err := client.Tasks.GetTask(os.Getenv("WRIKE_TEST_TASK_ID"), GetTaskOptions{})
+	fmt.Println("Task " + task.Data[0].Description)
 }
