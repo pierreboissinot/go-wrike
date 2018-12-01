@@ -157,6 +157,7 @@ func newClient(httpClient *http.Client) *Client {
 	return c
 }
 
+// Time represents time
 type Time struct {
 	time.Time
 }
