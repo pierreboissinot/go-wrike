@@ -2,6 +2,7 @@ package wrike
 
 import (
 	"encoding/json"
+	"github.com/google/go-querystring/query"
 	"io"
 	"net/http"
 	"net/url"
@@ -57,7 +58,7 @@ func (c *Client) SetBaseURL(urlStr string) error {
 }
 
 // NewRequest build request
-func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
+func (c *Client) NewRequest(method string, path string, params interface{}) (*http.Request, error) {
 	u := *c.baseURL
 	unescaped, err := url.PathUnescape(path)
 	if err != nil {
@@ -66,6 +67,14 @@ func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 
 	u.RawPath = c.baseURL.Path + path
 	u.Path = c.baseURL.Path + unescaped
+
+	if params != nil {
+		q, err := query.Values(params)
+		if err != nil {
+			return nil, err
+		}
+		u.RawQuery = q.Encode()
+	}
 
 	req := &http.Request{
 		Method:     method,

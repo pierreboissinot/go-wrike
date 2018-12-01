@@ -24,11 +24,13 @@ type Timelogs struct {
 	Kind string    `json:"kind"`
 	Data []Timelog `json:"data,omitempty"`
 }
+type TimelogsParams struct {
+}
 
 func (s *TimelogService) GetTimelogs(id string) (*Timelogs, *Response, error) {
 	u := fmt.Sprintf("folders/%s/timelogs", id)
 	fmt.Println(u)
-	req, err := s.client.NewRequest("GET", u)
+	req, err := s.client.NewRequest("GET", u, TimelogsParams{})
 	if err != nil {
 		return nil, nil, err
 	}
