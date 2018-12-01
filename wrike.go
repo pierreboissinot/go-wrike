@@ -2,10 +2,12 @@ package wrike
 
 import (
 	"encoding/json"
+	"github.com/google/go-querystring/query"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 const (
@@ -22,6 +24,7 @@ type Client struct {
 	userAgent string
 	Folders   *FolderService
 	Timelogs  *TimelogService
+	Tasks     *TaskService
 }
 
 // NewClient return client
@@ -55,7 +58,7 @@ func (c *Client) SetBaseURL(urlStr string) error {
 }
 
 // NewRequest build request
-func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
+func (c *Client) NewRequest(method string, path string, params interface{}) (*http.Request, error) {
 	u := *c.baseURL
 	unescaped, err := url.PathUnescape(path)
 	if err != nil {
@@ -64,6 +67,14 @@ func (c *Client) NewRequest(method string, path string) (*http.Request, error) {
 
 	u.RawPath = c.baseURL.Path + path
 	u.Path = c.baseURL.Path + unescaped
+
+	if params != nil {
+		q, err := query.Values(params)
+		if err != nil {
+			return nil, err
+		}
+		u.RawQuery = q.Encode()
+	}
 
 	req := &http.Request{
 		Method:     method,
@@ -141,6 +152,12 @@ func newClient(httpClient *http.Client) *Client {
 
 	c.Folders = &FolderService{client: c}
 	c.Timelogs = &TimelogService{client: c}
+	c.Tasks = &TaskService{client: c}
 
 	return c
+}
+
+// Time represents time
+type Time struct {
+	time.Time
 }

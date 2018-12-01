@@ -59,7 +59,7 @@ type Folder struct {
 // GetFolder from id, see Wrike API: https://developers.wrike.com/documentation/api/methods/get-folder
 func (s *FolderService) GetFolder(id string) (*Folder, *Response, error) {
 	u := fmt.Sprintf("folders/%s", id)
-	req, err := s.client.NewRequest("GET", u)
+	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
