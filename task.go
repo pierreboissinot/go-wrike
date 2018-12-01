@@ -27,6 +27,7 @@ type Task struct {
 	CustomStatusID string `json:"customStatusId"`
 	Permalink      string `json:"permalink"`
 	Priority       string `json:"priority"`
+	Description    string `json:"description"`
 }
 
 // Dates are dates
@@ -40,12 +41,13 @@ type Dates struct {
 // QueryTasksOptions to add params to query
 type QueryTasksOptions struct {
 	Permalink string `url:"permalink"`
+	Fields    string `url:"fields"`
 }
 
 // QueryTasks query tasks
-func (t *TaskService) QueryTasks(permalink string) (*TasksResponse, *Response, error) {
+func (t *TaskService) QueryTasks(options QueryTasksOptions) (*TasksResponse, *Response, error) {
 	path := "tasks"
-	req, err := t.client.NewRequest("GET", path, QueryTasksOptions{Permalink: permalink})
+	req, err := t.client.NewRequest("GET", path, options)
 	if err != nil {
 		return nil, nil, err
 	}
