@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 const (
@@ -22,6 +23,7 @@ type Client struct {
 	userAgent string
 	Folders   *FolderService
 	Timelogs  *TimelogService
+	Tasks     *TaskService
 }
 
 // NewClient return client
@@ -141,6 +143,11 @@ func newClient(httpClient *http.Client) *Client {
 
 	c.Folders = &FolderService{client: c}
 	c.Timelogs = &TimelogService{client: c}
+	c.Tasks = &TaskService{client: c}
 
 	return c
+}
+
+type Time struct {
+	time.Time
 }
